@@ -6,7 +6,7 @@ app.use(express.static('./'));
 
 app.get('/:symbol/:interval', async (req, res) => {
     try {
-        const getCandleData = require('./getCandleData.js');
+        const getCandleData = require('./charts/getCandleData.js');
         const candleData = await getCandleData(req.params.symbol, req.params.interval);
         res.status(200).send(candleData);
     } catch(e) {
