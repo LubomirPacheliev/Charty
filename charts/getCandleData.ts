@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 
-const getCandleData = async (symbol, interval) => {
+const getCandleData = async (symbol: string, interval: string) => {
     symbol = symbol.toUpperCase();
     if (!symbol.match(/\w{5,9}/gm)) return new Error('Invalid symbol.');
 
@@ -10,7 +10,7 @@ const getCandleData = async (symbol, interval) => {
     try {
         const resp = await fetch(url);
         const parsed = await resp.json();
-        const data = parsed.map(datum => {
+        const data = parsed.map((datum: any) => {
             return {
                 open: Number(Number(datum[1]).toFixed(2)),
                 high: Number(Number(datum[2]).toFixed(2)),

@@ -1,12 +1,30 @@
+//@ts-ignore
 import * as d3 from 'd3';
 import getCandleData from './getCandleData';
 import responsivefy from './responsivefy';
 
-const drawLineChart = async (symbol, interval, options) => {
+type Options = {
+    margin?: Number,
+    marginTop?: Number,
+    marginRight?: Number,
+    marginBottom?: Number,
+    marginLeft?: Number,
+    chartWidth?: Number,
+    chartHeight?: Number
+}
+
+type Datum = {
+    date?: Date,
+    open?: Number | String,
+    high?: Number | String,
+    low?: Number | String,
+    close?: Number | String
+};
+
+const drawLineChart = async (symbol: string, interval: string, options: Options) => {
     const data = await getCandleData(symbol, interval);
 
-    data.map(datum => {
-        if (Array.from(Object.values(datum)).includes(undefined)) throw new Error(`Candle is missing some data.\nReceived: ${datum}`);
+    data.map((datum: Datum) => {
         datum.date = datum.date ? new Date(datum.date) : new Date();
         datum.open = Number(datum.open);
         datum.high = Number(datum.high);
@@ -23,14 +41,14 @@ const drawLineChart = async (symbol, interval, options) => {
     }
 
     enum margin {
-        top = options.marginTop ? options.marginTop : 50,
-        right = options.marginRight ? options.marginRight : 50,
-        bottom = options.marginBottom ? options.marginBottom : 50,
-        left = options.marginLeft ? options.marginLeft : 50,
+        top = Number(options.marginTop ? options.marginTop : 50),
+        right = Number(options.marginRight ? options.marginRight : 50),
+        bottom = Number(options.marginBottom ? options.marginBottom : 50),
+        left = Number(options.marginLeft ? options.marginLeft : 50),
     }
 
-    const width = options.chartWidth ? options.chartWidth : ( window.innerWidth - margin.left - margin.right );
-    const height = options.chartHeight ? options.chartHeight : ( window.innerHeight - margin.top - margin.bottom );
+    const width = Number(options.chartWidth ? options.chartWidth : ( window.innerWidth - margin.left - margin.right));
+    const height = Number(options.chartHeight ? options.chartHeight : ( window.innerHeight - margin.top - margin.bottom));
 
     const svg = d3
         .select('#chart')
@@ -41,10 +59,10 @@ const drawLineChart = async (symbol, interval, options) => {
         .append('g')
         .attr('transform', `translate(${margin.left}), ${margin.top}`);
 
-    const xMin = d3.min(data, datum => datum.date);
-    const xMax = d3.max(data, datum => datum.date);
-    const yMin = d3.min(data, datum => datum.close);
-    const yMax = d3.max(data, datum => datum.close);
+    const xMin = d3.min(data, (datum: Datum) => datum.date);
+    const xMax = d3.max(data, (datum: Datum) => datum.date);
+    const yMin = d3.min(data, (datum: Datum) => datum.close);
+    const yMax = d3.max(data, (datum: Datum) => datum.close);
 
     const xScale = d3.scaleTime().domain([xMin, xMax]).range([0, width]);
     const yScale = d3.scaleLinear().domain(yMin - 5, yMax).range([height, 0]);
@@ -60,8 +78,8 @@ const drawLineChart = async (symbol, interval, options) => {
 
     const line = d3
         .line()
-        .x(datum => xScale(datum.date))
-        .y(datum => yScale(datum.close));
+        .x((datum: Datum) => xScale(datum.date))
+        .y((datum: Datum) => yScale(datum.close));
 
     svg.append('path')
         .data([data])
@@ -73,4 +91,4 @@ const drawLineChart = async (symbol, interval, options) => {
 
 }
 
-export default drawLineChart;
+drawLineChart('BTCUSDT', '1h', {});

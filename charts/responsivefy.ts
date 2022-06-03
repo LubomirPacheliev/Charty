@@ -1,5 +1,7 @@
+//@ts-ignore
 import * as d3 from 'd3';
 
+//@ts-ignore
 const responsivefy = (svg) => {
     // get container + svg aspect ratio
     const container = d3.select(svg.node().parentNode),
