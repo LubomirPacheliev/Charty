@@ -1,5 +1,5 @@
 //@ts-ignore
-import * as d3 from 'd3';
+const d3 = window.d3 || import('d3');
 import getCandleData from './getCandleData';
 import responsivefy from './responsivefy';
 
@@ -21,7 +21,10 @@ type Datum = {
     close?: Number | String
 };
 
+console.log('before def of func')
+
 const drawLineChart = async (symbol: string, interval: string, options: Options) => {
+    console.log(getCandleData);
     const data = await getCandleData(symbol, interval);
 
     data.map((datum: Datum) => {
@@ -51,7 +54,7 @@ const drawLineChart = async (symbol: string, interval: string, options: Options)
     const height = Number(options.chartHeight ? options.chartHeight : ( window.innerHeight - margin.top - margin.bottom));
 
     const svg = d3
-        .select('#chart')
+        .select('.chart')
         .append('svg')
         .attr('width', width + margin.right + margin.left)
         .attr('height', height + margin.top + margin.bottom)
@@ -88,7 +91,8 @@ const drawLineChart = async (symbol: string, interval: string, options: Options)
         .attr('stroke', 'steelblue')
         .attr('stroke-width', '1.5')
         .attr('d', line);
-
 }
 
-drawLineChart('BTCUSDT', '1h', {});
+(async () => {
+    await drawLineChart('BTCUSDT', '1h', {});   
+})();
