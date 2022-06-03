@@ -40,6 +40,37 @@ const drawLineChart = async (symbol, interval, options) => {
         .call(responsivefy)
         .append('g')
         .attr('transform', `translate(${margin.left}), ${margin.top}`);
+
+    const xMin = d3.min(data, datum => datum.date);
+    const xMax = d3.max(data, datum => datum.date);
+    const yMin = d3.min(data, datum => datum.close);
+    const yMax = d3.max(data, datum => datum.close);
+
+    const xScale = d3.scaleTime().domain([xMin, xMax]).range([0, width]);
+    const yScale = d3.scaleLinear().domain(yMin - 5, yMax).range([height, 0]);
+
+    svg.append('g')
+        .attr('id', 'xAxis')
+        .attr('transform', `translate(0, ${height})`)
+        .call(d3.axisBottom(xScale));
+    svg.append('g')
+        .attr('id', 'yAxis')
+        .attr('transform', `translate(${width}, 0)`)
+        .call(d3.axisRight(yScale));
+
+    const line = d3
+        .line()
+        .x(datum => xScale(datum.date))
+        .y(datum => yScale(datum.close));
+
+    svg.append('path')
+        .data([data])
+        .style('fill', 'none')
+        .attr('id', 'priceChart')
+        .attr('stroke', 'steelblue')
+        .attr('stroke-width', '1.5')
+        .attr('d', line);
+
 }
 
 export default drawLineChart;
