@@ -1,9 +1,27 @@
-// import path from 'path';
+import path from 'path';
 
-// export default {
-//     entry: './dist',
-//     output: {
-//         filename: 'main.js',
-//         path: path.resolve(__dirname, 'dist'),
-//     },
-// };
+export default {
+    // bundling mode
+    mode: 'production',
+    // entry files
+    entry: path.resolve('./src/charts/charty.ts'),
+    // output bundles (location)
+    output: {
+        path: path.resolve('./dist'),
+        filename: 'charty.js',
+    },
+    // file resolutions
+    resolve: {
+        extensions: ['.ts', '.js'],
+    },
+    // loaders
+    module: {
+        rules: [
+            {
+                test: /\.tsx?/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
+            }
+        ]
+    }
+};

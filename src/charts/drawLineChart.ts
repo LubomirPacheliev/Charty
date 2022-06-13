@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
-import getCandleData from './getCandleData.js';
-import responsivefy from './responsivefy.js';
+import getCandleData from './getCandleData';
+import responsivefy from './responsivefy';
 
 type Options = {
     margin?: Number,
