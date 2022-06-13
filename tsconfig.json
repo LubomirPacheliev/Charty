@@ -1,13 +1,14 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "es6",
         "target": "esnext",
+        "esModuleInterop": true,
+        "moduleResolution": "node",
         "noImplicitAny": true,
         "removeComments": false,
         "preserveConstEnums": true,
         "sourceMap": true,
         "strict": true,
-        "outDir": "./dist",
-        "esModuleInterop": true
+        "outDir": "./dist"
     }
 }

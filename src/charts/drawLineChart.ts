@@ -1,6 +1,6 @@
-import d3 from 'd3';
-import getCandleData from './getCandleData';
-import responsivefy from './responsivefy';
+import * as d3 from 'd3';
+import getCandleData from './getCandleData.js';
+import responsivefy from './responsivefy.js';
 
 type Options = {
     margin?: Number,
@@ -89,7 +89,4 @@ const drawLineChart = async (symbol: string, interval: string, options: Options)
         );
 }
 
-(async () => {
-    console.log('GAY IS RUNNING FROM COPS');
-    await drawLineChart('BTCUSDT', '1h', {});
-})();
+export default drawLineChart;

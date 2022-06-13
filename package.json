@@ -1,9 +1,9 @@
 {
   "name": "charty",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./src/server.js",
   "license": "MIT",
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
     "dev": "nodemon server.js"
   },
@@ -11,7 +11,8 @@
     "@types/d3": "^7.4.0",
     "@types/isomorphic-fetch": "^0.0.36",
     "nodemon": "^2.0.16",
-    "typescript": "^4.7.2"
+    "typescript": "^4.7.2",
+    "webpack": "^5.73.0"
   },
   "dependencies": {
     "d3": "^7.4.4",
