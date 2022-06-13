@@ -1,13 +1,13 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import path from 'path';
-import getCandleData from '../dist/getCandleData.js';
+import getCandleData from './charts/getCandleData';
 
 const app = express();
 const port = 3000;
 
 app.use(express.static(path.resolve('./')));
 
-app.get('/:symbol/:interval', async (req, res) => {
+app.get('/:symbol/:interval', async (req: Request, res: Response) => {
     try {
         const candleData = await getCandleData(req.params.symbol, req.params.interval);
         res.status(200).send(candleData);
@@ -17,7 +17,7 @@ app.get('/:symbol/:interval', async (req, res) => {
     }
 });
 
-app.get('*', (req, res) => {
+app.get('*', (req: Request, res: Response) => {
     res.sendFile(path.resolve('./canvas.html'));
 });
 

@@ -1,9 +1,8 @@
 {
     "compilerOptions": {
-        "module": "ES2015",
-        "target": "ES5",
+        "module": "commonjs",
+        "target": "esnext",
         "esModuleInterop": true,
-        "moduleResolution": "node",
         "noImplicitAny": true,
         "removeComments": false,
         "preserveConstEnums": true,

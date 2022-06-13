@@ -2,7 +2,7 @@ import path from 'path';
 
 export default {
     // bundling mode
-    mode: 'production',
+    mode: 'development',
     // entry files
     entry: path.resolve('./src/charts/charty.ts'),
     // output bundles (location)
