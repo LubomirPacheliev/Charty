@@ -56,7 +56,7 @@ const drawLineChart = async (symbol: string, interval: string, options: Options)
         .attr('height', height + margin.top + margin.bottom)
         .call(responsivefy)
         .append('g')
-        .attr('transform', `translate(${margin.left}), ${margin.top}`);
+        .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
     const xMin = Number(d3.min(data, (datum: Datum) => datum.date));
     const xMax = Number(d3.max(data, (datum: Datum) => datum.date));

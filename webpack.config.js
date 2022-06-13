@@ -1,6 +1,6 @@
-import path from 'path';
+const path = require('path');
 
-export default {
+module.exports = {
     // bundling mode
     mode: 'development',
     // entry files
