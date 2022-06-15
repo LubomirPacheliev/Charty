@@ -1,9 +1,10 @@
 {
   "name": "charty",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon ./src/server.ts"
+    "serve": "nodemon ./src/server.ts",
+    "compile": "npx webpack --config webpack.config.js"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.2",

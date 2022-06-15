@@ -9,7 +9,8 @@ type Options = {
     marginBottom?: Number,
     marginLeft?: Number,
     chartWidth?: Number,
-    chartHeight?: Number
+    chartHeight?: Number,
+    theme?: string
 }
 
 type Datum = {
@@ -46,11 +47,19 @@ const drawLineChart = async (symbol: string, interval: string, options: Options)
         left = Number(options.marginLeft ? options.marginLeft : 50),
     }
 
+    const themes = {
+        dark: { background: `#151924`, color: `#67809f` },
+        light: { background: `#e2e3e7`, color: `#102e53` }
+    }
+
     const width = Number(options.chartWidth ? options.chartWidth : (window.innerWidth - margin.left - margin.right));
     const height = Number(options.chartHeight ? options.chartHeight : (window.innerHeight - margin.top - margin.bottom));
+    const theme = options.theme ? (options.theme == 'dark' ? themes.dark : themes.light) : themes.dark;
 
     const svg = d3
         .select('.chart')
+        .style('background-color', theme.background)
+        .style('color', theme.color)
         .append('svg')
         .attr('width', width + margin.right + margin.left)
         .attr('height', height + margin.top + margin.bottom)
